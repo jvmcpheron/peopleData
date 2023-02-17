@@ -1,7 +1,7 @@
 /* 
-Programming Project 5: Arrays
+Programming Project 6: Classes
 Jane McPheron
-03/23/2023
+03/30/2023
 */
 
  
@@ -83,7 +83,8 @@ int getUserChoice(){
     int answer;
 
     cout << "What would you like to know?" << endl;
-    cout << "  1) The tallest person in a city." <<endl <<"  2) The shortest person in a city./n"
+    cout << "  1) The tallest person in a city." <<endl 
+    <<"  2) The shortest person in a city." <<endl
     <<"  3) The set of people from a city sorted by height." <<endl
     <<"  4) The tallest person(s) and what cit(ies) they are from."
     << endl << "  0) Quit" <<endl << "" << endl;
@@ -92,14 +93,79 @@ int getUserChoice(){
     return answer;
 }
 
+//function for giving information on the tallest person in a city
+void tallestInCity(){
+
+    //getting user input for search
+    string search;
+    bool success = false;
+    cout << "What city would you like to know about?";
+    cin >> search;
+
+
+    for(int i = 0; i < allData.size(); i++) {
+        if (allData[i].myCity == search){
+            cout << endl;
+            cout<< "The tallest person in " << allData[i].myCity << " is " 
+            << allData[i].myName << " at " << allData[i].myHeight << " inches." << endl;
+            cout << endl <<endl <<endl;
+
+            //telling computer that the search was successful
+            success = true;
+            break;
+        }
+    }
+        //telling user computer did not find their search
+    if (success == false){
+        cout << endl;
+        cout << "Sorry, that information is unavailable." << endl;
+        cout << endl <<endl <<endl;
+    }
+}
+
+//function for giving information on the tallest person in a city
+void shortestInCity(){
+
+}
+
+//function for giving info on all people in the city
+void allPeopleInCity(){
+
+}
+
+//function for giving information on the tallest person/people overall
+void tallestPeople(){
+
+}
+
+
 
 int main(){
 
     //declaring variable
     int userChoice = 5;
 
+    //organizing data into a sorted list of objects
     organizeData();
-    userChoice = getUserChoice();
+
+    //looping through what the user wants
+    while (userChoice != 0){
+        userChoice = getUserChoice();
+        if (userChoice == 1){
+            tallestInCity();
+        } else if (userChoice == 2){
+            shortestInCity();
+        }else if (userChoice == 3){
+            allPeopleInCity();
+        }else if (userChoice == 4){
+            tallestPeople();
+        }else if (userChoice == 0){
+            cout << "Good bye!";
+        }else{
+            cout << "Sorry, I don't understand" << endl;
+        }
+    }
+    
     
     // for(int i = 0; i < allData.size(); i++){
     //     cout << allData[i].myName << allData[i].myCity << allData[i].myHeight << endl;
