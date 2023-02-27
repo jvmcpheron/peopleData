@@ -4,7 +4,7 @@ Jane McPheron
 03/30/2023
 */
 
- 
+  
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,7 +12,7 @@ Jane McPheron
 #include <sstream>
 using namespace std;
 
-
+//FUNCTIONS FOR ORGANIZING AND WORKING WITH DATA
 //class to create objecs out of each data row
 class HeightData {       
   public:             // Access specifier
@@ -21,14 +21,13 @@ class HeightData {
     int myHeight;
 };
 
-//declaring vector that will contain all data
+//declaring a universal vector that will contain all data
 vector<HeightData> allData; 
 
 //function for comparing height values
 bool compareNum(const HeightData& a, const HeightData& b) {
     return a.myHeight > b.myHeight;
 }
-
 
 //function to organize data
 void organizeData(){
@@ -78,6 +77,7 @@ ifstream inputFile;
 }
 
 
+//FUNCTIONS FOR USER OPTIONS
 //function for getting user choice
 int getUserChoice(){
     int answer;
@@ -126,16 +126,69 @@ void tallestInCity(){
 //function for giving information on the tallest person in a city
 void shortestInCity(){
 
+//getting user input for search
+    string search;
+    bool success = false;
+    cout << "What city would you like to know about?";
+    cin >> search;
+
+
+    for(int i = allData.size(); i > -1; i--) {
+        if (allData[i].myCity == search){
+            cout << endl;
+            cout<< "The shortest person in " << allData[i].myCity << " is " 
+            << allData[i].myName << " at " << allData[i].myHeight << " inches." << endl;
+            cout << endl <<endl <<endl;
+
+            //telling computer that the search was successful
+            success = true;
+            break;
+        }
+    }
+        //telling user computer did not find their search
+    if (success == false){
+        cout << endl;
+        cout << "Sorry, that information is unavailable." << endl;
+        cout << endl <<endl <<endl;
+    }
 }
 
 //function for giving info on all people in the city
 void allPeopleInCity(){
+
+    //taking user input for search
+    string search;
+    cout << "What city would you like to know about?";
+    cin >> search;
+
+    //starting output of information
+    cout <<endl;
+    cout << "People from " << search << ":" <<endl;
+    cout << "Name         Height" <<endl;
+    cout << "-------------------" << endl;
+
+    //looping through list
+    for(int i = allData.size(); i > -1; i--) {
+        if (allData[i].myCity == search){
+            cout<< allData[i].myName << " " << allData[i].myHeight << endl;
+        }
+
+    }
+    cout <<endl << endl <<endl;
 
 }
 
 //function for giving information on the tallest person/people overall
 void tallestPeople(){
 
+    cout << "The tallest people at " << allData[0].myHeight <<" inches is/are: " << endl;
+    for(int i = 0; i < allData.size(); i++) {
+        if (allData[i].myHeight == allData[0].myHeight){
+            cout << allData[i].myName << " from " << allData[i].myCity << endl;
+            
+        }
+    }
+    cout  <<endl<<endl;
 }
 
 
