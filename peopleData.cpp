@@ -21,18 +21,77 @@ class HeightData {
     int myHeight;
 };
 
-//declaring a universal vector that will contain all data
-vector<HeightData> allData; 
-
 //function for comparing height values
+bool compareNum(const HeightData& a, const HeightData& b);
+
+//function to organize data
+vector<HeightData> organizeData();
+
+
+//FUNCTIONS FOR USER OPTIONS
+//function for getting user choice
+int getUserChoice();
+
+//function for giving information on the tallest person in a city
+void tallestInCity(vector<HeightData> allData);
+
+//function for giving information on the tallest person in a city
+void shortestInCity(vector<HeightData> allData);
+
+//function for giving info on all people in the city
+void allPeopleInCity(vector<HeightData> allData);
+
+//function for giving information on the tallest person/people overall
+void tallestPeople(vector<HeightData> allData);
+
+
+
+int main(){
+
+    //declaring variable
+    int userChoice = 5;
+
+    //organizing data into a sorted list of objects
+    vector<HeightData> allData;
+
+    allData = organizeData();
+
+    //looping through what the user wants
+    while (userChoice != 0){
+        userChoice = getUserChoice();
+        if (userChoice == 1){
+            tallestInCity(allData);
+        } else if (userChoice == 2){
+            shortestInCity(allData);
+        }else if (userChoice == 3){
+            allPeopleInCity(allData);
+        }else if (userChoice == 4){
+            tallestPeople(allData);
+        }else if (userChoice == 0){
+            cout << "Good bye!";
+        }else{
+            cout << "Sorry, I don't understand" << endl;
+        }
+    }
+    
+    
+    // for(int i = 0; i < allData.size(); i++){
+    //     cout << allData[i].myName << allData[i].myCity << allData[i].myHeight << endl;
+    // }
+    
+}
+
 bool compareNum(const HeightData& a, const HeightData& b) {
     return a.myHeight > b.myHeight;
 }
 
-//function to organize data
-void organizeData(){
+vector<HeightData> organizeData(){
 
-ifstream inputFile;
+    ifstream inputFile;
+
+
+    //declaring vector
+    vector<HeightData> mainData;
 
     //accessing the CSV data file
     inputFile.open("people-data.csv");
@@ -67,18 +126,17 @@ ifstream inputFile;
         dataEntry.myHeight = height;
 
         //putting object into a vector
-        allData.push_back(dataEntry);
+        mainData.push_back(dataEntry);
 
     }
 
     //sorting the vector
-    sort(allData.begin(), allData.end(), compareNum);
+    sort(mainData.begin(), mainData.end(), compareNum);
+
+    return mainData;
 
 }
 
-
-//FUNCTIONS FOR USER OPTIONS
-//function for getting user choice
 int getUserChoice(){
     int answer;
 
@@ -93,8 +151,7 @@ int getUserChoice(){
     return answer;
 }
 
-//function for giving information on the tallest person in a city
-void tallestInCity(){
+void tallestInCity(vector<HeightData> allData){
 
     //getting user input for search
     string search;
@@ -123,8 +180,7 @@ void tallestInCity(){
     }
 }
 
-//function for giving information on the tallest person in a city
-void shortestInCity(){
+void shortestInCity(vector<HeightData> allData){
 
 //getting user input for search
     string search;
@@ -153,8 +209,7 @@ void shortestInCity(){
     }
 }
 
-//function for giving info on all people in the city
-void allPeopleInCity(){
+void allPeopleInCity(vector<HeightData> allData){
 
     //taking user input for search
     string search;
@@ -178,8 +233,7 @@ void allPeopleInCity(){
 
 }
 
-//function for giving information on the tallest person/people overall
-void tallestPeople(){
+void tallestPeople(vector<HeightData> allData){
 
     cout << "The tallest people at " << allData[0].myHeight <<" inches is/are: " << endl;
     for(int i = 0; i < allData.size(); i++) {
@@ -192,36 +246,3 @@ void tallestPeople(){
 }
 
 
-
-int main(){
-
-    //declaring variable
-    int userChoice = 5;
-
-    //organizing data into a sorted list of objects
-    organizeData();
-
-    //looping through what the user wants
-    while (userChoice != 0){
-        userChoice = getUserChoice();
-        if (userChoice == 1){
-            tallestInCity();
-        } else if (userChoice == 2){
-            shortestInCity();
-        }else if (userChoice == 3){
-            allPeopleInCity();
-        }else if (userChoice == 4){
-            tallestPeople();
-        }else if (userChoice == 0){
-            cout << "Good bye!";
-        }else{
-            cout << "Sorry, I don't understand" << endl;
-        }
-    }
-    
-    
-    // for(int i = 0; i < allData.size(); i++){
-    //     cout << allData[i].myName << allData[i].myCity << allData[i].myHeight << endl;
-    // }
-    
-}
